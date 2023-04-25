@@ -6,3 +6,7 @@
 .weather-today{
     font-size: 25px;
 }
+
+.weather{
+    width: 60%;
+}
