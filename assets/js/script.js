@@ -77,28 +77,30 @@ searchButton.on("click", function(){
     let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + userCity.val() + "&appid=" + weatherAPIKey + "&units=imperial";
     console.log(userCity.val());
     if (userCity.val() !== ""){
-        // fetch(queryURL)
-        //     .then((response => response.json())
-        //     .then(userDataProcessing))
-        //     .then(getCurrentWeatherData)
-            fetch(queryURL)
-        .then(function (response) {
-        return response.json();
-        })
-        .then(function (data) {
-        let latitude = data.coord.lat;
-        let longitude = data.coord.lon;
-        console.log(latitude);
-        console.log(data)
-        currentCity.text(data.name);
-        currentTemp.text(data.main.temp);
-        currentWind.text(data.wind.speed);
-        currentHumidity.text(data.main.humidity);
-        fiveDayForecast(latitude, longitude);
-        })
+        fetch(queryURL)
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (data) {
+            let latitude = data.coord.lat;
+            let longitude = data.coord.lon;
+            console.log(latitude);
+            console.log(data)
+            currentCity.text(data.name);
+            currentTemp.text(data.main.temp);
+            currentWind.text(data.wind.speed);
+            currentHumidity.text(data.main.humidity);
+            fiveDayForecast(latitude, longitude);
+            displayCurrentDate();
+            })
     }
 
 });
+
+function displayCurrentDate() {
+    var currentDay = dayjs();
+    currentDate.text(currentDay.format('MM/DD/YYYY'))
+    }
 
 function fiveDayForecast(lat, lon){
     let queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + weatherAPIKey + "&units=imperial";
