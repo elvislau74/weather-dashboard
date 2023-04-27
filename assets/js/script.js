@@ -11,13 +11,13 @@ let currentHumidity = $(".current-humidity");
 function init() {
   userCity = $("#enter-city");
   let cityToSearch = localStorage.getItem("search-input");
-  queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityToSearch + "&appid=" + weatherAPIKey + "&units=imperial";
+  queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityToSearch + "&appid=" + weatherAPIKey + "&units=imperial";
   $("#search-input").children("#enter-city").val(localStorage.getItem("search-input"));
 
   if (userCity.val() == "") {
     cityToSearch = "Philadelphia";
     userCity.val(cityToSearch);
-    queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityToSearch + "&appid=" + weatherAPIKey + "&units=imperial";
+    queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityToSearch + "&appid=" + weatherAPIKey + "&units=imperial";
     getCurrentWeather(queryURL);
   }
   else {
@@ -51,8 +51,9 @@ function getCurrentWeather(queryURL) {
 
 searchButton.on("click", function(){
     let userCity = $("#enter-city");
-    let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + userCity.val() + "&appid=" + weatherAPIKey + "&units=imperial";
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity.val() + "&appid=" + weatherAPIKey + "&units=imperial";
     console.log(userCity.val());
+    cityToSearch = userCity.value;
     if (userCity.val() !== ""){
       getCurrentWeather(queryURL);
     }
@@ -61,7 +62,18 @@ searchButton.on("click", function(){
     localStorage.setItem(siblingClass, citySearched);
     console.log(siblingClass);
 
+    // createHistoryButtons(cityToSearch);
+
 });
+
+// function createHistoryButtons(cityToSearch) {
+//   let historyButton = $("<button>");
+//   historyButton.text(cityToSearch);
+//   historyButton.attr("class", "history-btn");
+//   searchHistory.append(historyButton);
+//   searchHistory.css("display", "flex")
+//   // historyButton.attr("")
+// }
 
 function displayCurrentDate() {
     var currentDay = dayjs();
@@ -69,7 +81,7 @@ function displayCurrentDate() {
     }
 
 function fiveDayForecast(lat, lon){
-    let queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + weatherAPIKey + "&units=imperial";
+    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + weatherAPIKey + "&units=imperial";
 fetch(queryURL)
     .then(function (response) {
       return response.json();
@@ -81,6 +93,7 @@ fetch(queryURL)
         let fivedays = $(`#day${i}`);
         forecastCount = 0;
         fivedays.children().children(".date").text(data.list[forecastCount].dt_txt);
+        console.log(data.list[forecastCount].dt_txt);
         fivedays.children().children(".temp").text(data.list[forecastCount].main.temp);
         fivedays.children().children(".wind").text(data.list[forecastCount].wind.speed);
         fivedays.children().children(".humidity").text(data.list[forecastCount].main.humidity);
