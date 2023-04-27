@@ -9,6 +9,16 @@ let currentDate = $(".current-date");
 let currentTemp = $(".current-temp");
 let currentWind = $(".current-wind");
 let currentHumidity = $(".current-humidity");
+let monthNow, dayNow, yearNow, dateNow, unixDate, dateConverted;
+
+function convertUnixTime(unixDate) {
+  dateConverted = new Date(unixDate*1000);
+  monthNow = dateConverted.getMonth() + 1;
+  dayNow = dateConverted.getDate();
+  yearNow = dateConverted.getFullYear();
+  dateNow = `${monthNow}/${dayNow}/${yearNow}`
+  return dateNow;
+};
 
 function init() {
   userCity = $("#enter-city");
@@ -41,16 +51,18 @@ function getCurrentWeather(queryURL) {
     latitude = data.coord.lat;
     longitude = data.coord.lon;
     weatherIcon = data.weather[0].icon;
+    unixDate = data.dt;
+    console.log(unixDate);
     console.log(latitude);
     console.log(data);
     console.log(weatherIcon);
     currentCity.text(data.name);
     $(".city-and-date").children(".icon").attr("src", `https://openweathermap.org/img/wn/${weatherIcon}.png`);
+    currentDate.text(convertUnixTime(unixDate));
     currentTemp.text(data.main.temp);
     currentWind.text(data.wind.speed);
     currentHumidity.text(data.main.humidity);
     fiveDayForecast(latitude, longitude);
-    displayCurrentDate();
     });
 };
 
@@ -80,11 +92,6 @@ searchButton.on("click", function(){
 //   // historyButton.attr("")
 // }
 
-function displayCurrentDate() {
-    var currentDay = dayjs();
-    currentDate.text(currentDay.format('MM/DD/YYYY'))
-    }
-
 function fiveDayForecast(lat, lon){
     let queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + weatherAPIKey + "&units=imperial";
 fetch(queryURL)
@@ -98,7 +105,8 @@ fetch(queryURL)
       for (var i = 0; i < 5; i++) {
         let fivedays = $(`#day${i}`);
         weatherIcon = data.list[forecastCount].weather[0].icon;
-        fivedays.children(".date").text(data.list[forecastCount].dt_txt);
+        unixDate = data.list[forecastCount].dt;
+        fivedays.children(".date").text(convertUnixTime(unixDate));
         console.log(data.list[forecastCount].dt_txt);
         fivedays.children().attr("src", `https://openweathermap.org/img/wn/${weatherIcon}.png`)
         fivedays.children().children(".temp").text(data.list[forecastCount].main.temp);
