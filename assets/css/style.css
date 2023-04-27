@@ -1,16 +1,20 @@
+/* Adding background color to the header */
 .header {
     background-color: rgb(33, 33, 216);
     color: white;
 }
 
+/* Changing font size of the first div holding the current weather conditions */
 .weather-today{
     font-size: 25px;
 }
 
+/* Changing the width of the section holding the current weather and 5 day forecast*/
 .weather{
     width: 60%;
 }
 
+/* Adding right margins to the 5-day weather forecast boxes and background color */
 .five-day {
     margin-right: 4px;
     background-color: rgb(22, 155, 155);
