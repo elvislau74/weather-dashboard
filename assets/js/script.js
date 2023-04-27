@@ -1,5 +1,5 @@
 const weatherAPIKey = "d4ed3cef19cf11d3ba421c419e0afec8";
-// let citySearched, cityToFind, citySelected;
+let forecastCount;
 const searchButton = $(".btn");
 let searchHistory = $("#search-history");
 let currentCity = $(".current-city");
@@ -7,6 +7,10 @@ let currentDate = $(".current-date");
 let currentTemp = $(".current-temp");
 let currentWind = $(".current-wind");
 let currentHumidity = $(".current-humidity");
+
+function init() {
+
+};
 
 // let buttonCount = 0;
 // let buttonList = [];
@@ -94,6 +98,9 @@ searchButton.on("click", function(){
             displayCurrentDate();
             })
     }
+    let citySearched = userCity.val()
+
+    localStorage.setItem(item, citySearched);
 
 });
 
@@ -110,6 +117,21 @@ fetch(queryURL)
     })
     .then(function (data) {
       console.log(data);
-    //   console.log(data.main.temp)
+      console.log(data.list[9].main.humidity);
+      for (var i = 0; i < 5; i++) {
+        let fivedays = $(`#day${i}`);
+        forecastCount = 0;
+        fivedays.children().children(".date").text(data.list[forecastCount].dt_txt);
+        fivedays.children().children(".temp").text(data.list[forecastCount].main.temp);
+        fivedays.children().children(".wind").text(data.list[forecastCount].wind.speed);
+        fivedays.children().children(".humidity").text(data.list[forecastCount].main.humidity);
+        forecastCount = forecastCount + 9;
+        console.log(forecastCount);
+      }
+    // $("#day0").children().children(".humidity").text(data.list[0].main.humidity);
+    // $("#day2").children().children(".humidity").text(data.list[9].main.humidity);
+    // $("#day3").children().children(".humidity").text(data.list[18].main.humidity);
+    // $("#day4").children().children(".humidity").text(data.list[27].main.humidity);
+    // $("#day5").children().children(".humidity").text(data.list[36].main.humidity);
     })
 }
