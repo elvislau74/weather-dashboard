@@ -1,5 +1,7 @@
 const weatherAPIKey = "d4ed3cef19cf11d3ba421c419e0afec8";
 let forecastCount;
+let weatherIcon;
+let longitude, latitude;
 const searchButton = $(".btn");
 let searchHistory = $("#search-history");
 let currentCity = $(".current-city");
@@ -38,9 +40,12 @@ function getCurrentWeather(queryURL) {
     .then(function (data) {
     latitude = data.coord.lat;
     longitude = data.coord.lon;
+    weatherIcon = data.weather[0].icon;
     console.log(latitude);
-    console.log(data)
+    console.log(data);
+    console.log(weatherIcon);
     currentCity.text(data.name);
+    $(".city-and-date").children(".icon").attr("src", `https://openweathermap.org/img/wn/${weatherIcon}.png`);
     currentTemp.text(data.main.temp);
     currentWind.text(data.wind.speed);
     currentHumidity.text(data.main.humidity);
@@ -89,21 +94,18 @@ fetch(queryURL)
     .then(function (data) {
       console.log(data);
       console.log(data.list[9].main.humidity);
+      forecastCount = 0;
       for (var i = 0; i < 5; i++) {
         let fivedays = $(`#day${i}`);
-        forecastCount = 0;
-        fivedays.children().children(".date").text(data.list[forecastCount].dt_txt);
+        weatherIcon = data.list[forecastCount].weather[0].icon;
+        fivedays.children(".date").text(data.list[forecastCount].dt_txt);
         console.log(data.list[forecastCount].dt_txt);
+        fivedays.children().attr("src", `https://openweathermap.org/img/wn/${weatherIcon}.png`)
         fivedays.children().children(".temp").text(data.list[forecastCount].main.temp);
         fivedays.children().children(".wind").text(data.list[forecastCount].wind.speed);
         fivedays.children().children(".humidity").text(data.list[forecastCount].main.humidity);
-        forecastCount = forecastCount + 9;
+        forecastCount = forecastCount + 8;
         console.log(forecastCount);
       }
-    // $("#day0").children().children(".humidity").text(data.list[0].main.humidity);
-    // $("#day1").children().children(".humidity").text(data.list[9].main.humidity);
-    // $("#day2").children().children(".humidity").text(data.list[18].main.humidity);
-    // $("#day3").children().children(".humidity").text(data.list[27].main.humidity);
-    // $("#day4").children().children(".humidity").text(data.list[36].main.humidity);
     })
 }
