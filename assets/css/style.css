@@ -14,6 +14,11 @@
     width: 60%;
 }
 
+/* Changing the width of the section holding the text field and buttons*/
+.search-field{
+    width: 35%;
+}
+
 /* Adding right margins to the 5-day weather forecast boxes and background color */
 .five-day {
     margin-right: 4px;
