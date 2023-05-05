@@ -5,6 +5,7 @@ let weatherIcon;
 let cityHistory = [];
 let longitude, latitude;
 const searchButton = $(".btn");
+const clearButton = $(".clear-btn");
 let searchHistory = $("#search-history");
 let currentCity = $(".current-city");
 let currentDate = $(".current-date");
@@ -109,6 +110,13 @@ searchHistory.on("click", ".history-btn", function(){
   queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).val() + "&appid=" + weatherAPIKey + "&units=imperial";
   getCurrentWeather(queryURL);
 })
+
+// Create event listener to clear search history buttons
+clearButton.on("click", function(){
+  searchHistory.empty();
+  cityHistory = [];
+  localStorage.clear();
+});
 
 // this function fetches information from the API to use for the five day forecast portion of the page
 function fiveDayForecast(lat, lon){

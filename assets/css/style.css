@@ -25,6 +25,20 @@
     background-color: rgb(22, 155, 155);
 }
 
+/* lengthens the created history buttons, rounds them out and sets their margin and padding*/
+.history-btn {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* sets padding of clear button and rounds the corners*/
+.clear-btn {
+    border-radius: 5px;
+    padding: 5px;
+}
+
 /* Use media query to change the width of both the sections to be 100% on smaller screens*/
 @media screen and (max-width:768px){
 .weather{

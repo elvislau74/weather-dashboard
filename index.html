@@ -23,7 +23,7 @@
         <!-- main class container for everything on page -->
         <main class="container d-flex flex-wrap">
             
-            <!-- this section takes in user input with a text field and search button -->
+            <!-- this section takes in user input with a text field, and has the search button and the clear history button -->
             <section class = "search-field">
                 <div class = "row">
                     <div id = "search-input" class = "form-group col-12 col-lg-8 my-4 d-flex flex-column">
@@ -31,9 +31,12 @@
                         <input name = "search" type = "text" id = "enter-city">
                     </div>
                     <div class = "form-group col-12 col-lg-8">
-                        <button type="submit" class = "btn btn-primary col-12">Search</button>
+                        <button type="submit" class = "btn btn-primary mb-3 col-12">Search</button>
                     </div>
-                    <div id = "search-history" class = "form-group border-top col-12 col-lg-8 my-4"></div>
+                    <div class = "form-group col-12 col-lg-8">
+                        <button type="submit" class = "clear-btn btn-primary p-1 col-12">Clear History</button>
+                    </div>
+                    <div id = "search-history" class = "form-group border-top pt-3 col-12 col-lg-8 my-4"></div>
                 </div>
             </section>
 
