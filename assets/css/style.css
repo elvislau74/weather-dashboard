@@ -23,6 +23,7 @@
 .five-day {
     margin-right: 4px;
     background-color: rgb(22, 155, 155);
+    width: 19.3%;
 }
 
 /* lengthens the created history buttons, rounds them out and sets their margin and padding*/
@@ -45,6 +46,9 @@
     width: 100%;
 }
 .search-field{
+    width: 100%;
+}
+.five-day {
     width: 100%;
 }
 }
